@@ -271,6 +271,14 @@ body::before {
   font-style: italic;
 }
 
+.card__message p {
+  margin-bottom: 0.75rem;
+}
+
+.card__message p:last-child {
+  margin-bottom: 0;
+}
+
 .card__name {
   display: block;
   font-size: 0.8rem;
