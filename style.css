@@ -2,12 +2,18 @@
    CUSTOM PROPERTIES
    ===================== */
 :root {
-  --cream: #FDF6EC;
-  --gold: #C9A84C;
-  --gold-light: #E8C97A;
-  --charcoal: #2C2C2C;
-  --brown-accent: #8B6245;
-  --card-shadow: 0 4px 24px rgba(44, 28, 10, 0.12);
+  --space-black: #05050f;
+  --space-navy: #0d0d2b;
+  --space-card: #10102e;
+  --purple: #7b2fff;
+  --purple-glow: rgba(123, 47, 255, 0.4);
+  --cyan: #00d4ff;
+  --cyan-glow: rgba(0, 212, 255, 0.35);
+  --star-gold: #ffd700;
+  --star-gold-glow: rgba(255, 215, 0, 0.5);
+  --text-light: #e8e8ff;
+  --text-dim: #9090c0;
+  --card-shadow: 0 0 24px rgba(0, 212, 255, 0.15);
 }
 
 /* =====================
@@ -25,8 +31,39 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--cream);
-  color: var(--charcoal);
+  background-color: var(--space-black);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+/* =====================
+   STAR FIELD
+   ===================== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 40%, #fff 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 38% 8%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 52% 72%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 63% 30%, #fff 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 74% 55%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 82% 18%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 91% 85%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 60%, #fff 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 47% 92%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 19% 78%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 67% 12%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 44%, #fff 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 33% 55%, rgba(200,200,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 56% 22%, rgba(200,200,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 78% 68%, rgba(200,200,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 14% 90%, rgba(200,200,255,0.8) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 95% 35%, rgba(200,200,255,0.8) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* =====================
@@ -36,14 +73,15 @@ body {
   position: relative;
   height: 100vh;
   min-height: 600px;
-  background-image: url('images/hero.jpg');
+  background-image: url('images/hero.png');
   background-size: cover;
   background-position: center;
-  background-color: #3a2a1a;
+  background-color: var(--space-navy);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  z-index: 1;
 }
 
 .hero__overlay {
@@ -51,25 +89,51 @@ body {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(30, 18, 8, 0.55) 0%,
-    rgba(30, 18, 8, 0.70) 100%
+    rgba(5, 5, 15, 0.6) 0%,
+    rgba(13, 13, 43, 0.75) 60%,
+    rgba(5, 5, 15, 0.95) 100%
   );
+}
+
+/* Nebula glow blobs behind content */
+.hero__overlay::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(123, 47, 255, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero__overlay::after {
+  content: '';
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 200px;
+  background: radial-gradient(ellipse, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .hero__content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding: 0 1.5rem;
 }
 
 .hero__subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--gold-light);
-  margin-bottom: 1rem;
+  color: var(--cyan);
+  margin-bottom: 1.25rem;
+  text-shadow: 0 0 12px var(--cyan-glow);
 }
 
 .hero__title {
@@ -78,24 +142,134 @@ body {
   font-weight: 700;
   color: #fff;
   line-height: 1.15;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.75rem;
+  text-shadow:
+    0 0 30px var(--purple-glow),
+    0 0 60px var(--purple-glow);
+}
+
+/* Glowing age badge */
+.hero__title::after {
+  content: '✦ 36 ✦';
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--star-gold);
+  text-shadow: 0 0 16px var(--star-gold-glow);
+  margin-top: 0.75rem;
 }
 
 .hero__cta {
   display: inline-block;
-  padding: 0.85rem 2.5rem;
-  border: 2px solid var(--gold);
-  color: var(--gold);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
+  margin-top: 2rem;
+  padding: 0.9rem 2.75rem;
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  background: rgba(0, 212, 255, 0.05);
+  box-shadow: 0 0 16px var(--cyan-glow), inset 0 0 16px rgba(0, 212, 255, 0.05);
+  transition: background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
 }
 
 .hero__cta:hover {
-  background-color: var(--gold);
-  color: var(--charcoal);
+  background: rgba(0, 212, 255, 0.15);
+  box-shadow: 0 0 32px var(--cyan-glow), inset 0 0 24px rgba(0, 212, 255, 0.1);
+  color: #fff;
+}
+
+/* =====================
+   COLLAGE SECTION
+   ===================== */
+.collage {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(to bottom, var(--space-black), var(--space-navy) 40%, var(--space-black));
+  padding: 5rem 2rem 6rem;
+}
+
+.collage__heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 400;
+  color: var(--text-dim);
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+}
+
+/* Masonry via CSS columns */
+.collage__grid {
+  column-count: 3;
+  column-gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .collage__grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .collage__grid {
+    column-count: 1;
+  }
+}
+
+/* =====================
+   CARDS
+   ===================== */
+.card {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  background-color: var(--space-card);
+  border: 1px solid rgba(123, 47, 255, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--cyan);
+  box-shadow: 0 0 32px var(--cyan-glow), 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.card__photo {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  filter: brightness(0.9) saturate(0.85);
+}
+
+.card__body {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.card__message {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.card__name {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--star-gold);
+  text-transform: uppercase;
+  text-shadow: 0 0 8px var(--star-gold-glow);
 }

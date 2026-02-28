@@ -1,0 +1,10 @@
+# Claude
+.claude/
+CLAUDE.md
+
+# Design docs
+docs/
+
+# VS Code
+.vscode/
+.vs/
